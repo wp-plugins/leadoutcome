@@ -8,7 +8,8 @@ Stable tag: Stable
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-LeadOutcome provides you with every tool and a robust system for lead activity tracking and management, lead conversions, email marketing, and more
+<img src="http://768fb7af815f78d7559a-1cf765037453fe7e5aa46c8e17022e63.r47.cf2.rackcdn.com/staging/sites/all/themes/rubik/cube/logo_1336174074.png" />
+<br />LeadOutcome provides you with every tool and a robust system for lead activity tracking and management, lead conversions, email marketing, and more
 
 == Description ==
 
