@@ -32,4 +32,24 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
-$profile_plugin_dir = basename(dirname(__FILE__));@define('LO_PLUGIN_DIR',$profile_plugin_dir);@define('LO_PLUGIN_ABS_PATH_DIR',$_SERVER['DOCUMENT_ROOT'].'/wp-content/plugins/'.LO_PLUGIN_DIR);//@define('JQUERY_UI_THEME','black-tie');//@define('JQUERY_UI_THEME','blitzer');//@define('JQUERY_UI_THEME','south-street');//@define('JQUERY_UI_THEME','smoothness');@define('JQUERY_UI_THEME','cupertino');if (preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])){	die('Access Denied');}global $is_IIS;# hack for some IIS installationsif ($is_IIS && @ini_get('error_log') == '') @ini_set('error_log', 'syslog');include_once('includes/config.php');include_once('includes/functions.php');include_once('includes/hooks.php');register_activation_hook(__FILE__, 'lo_plugin_activate');
+$profile_plugin_dir = basename(dirname(__FILE__));
+@define('LO_PLUGIN_DIR',$profile_plugin_dir);
+@define('LO_PLUGIN_ABS_PATH_DIR',$_SERVER['DOCUMENT_ROOT'].'/wp-content/plugins/'.LO_PLUGIN_DIR);
+
+//@define('JQUERY_UI_THEME','black-tie');
+//@define('JQUERY_UI_THEME','blitzer');
+//@define('JQUERY_UI_THEME','south-street');
+//@define('JQUERY_UI_THEME','smoothness');
+@define('JQUERY_UI_THEME','cupertino');
+if (preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']))
+{
+	die('Access Denied');
+}
+global $is_IIS;
+# hack for some IIS installations
+if ($is_IIS && @ini_get('error_log') == '') @ini_set('error_log', 'syslog');
+
+include_once('includes/config.php');
+include_once('includes/functions.php');
+include_once('includes/hooks.php');
+register_activation_hook(__FILE__, 'lo_plugin_activate');
