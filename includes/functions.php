@@ -71,7 +71,7 @@ function lo_post_edit_form_tag( ) {
 
 function lo_admin_menu()
 {
-	add_menu_page(__('LeadOutcome', 'lo'), __('Lead Outcome', 'lo'), 'administrator', 'leadoutcom_main', 'lo_admin_main',plugins_url('leadoutcome/frontend/img/lo_icon.png'));
+	add_menu_page(__('LeadOutcome', 'lo'), __('LeadOutcome', 'lo'), 'administrator', 'leadoutcom_main', 'lo_admin_main',plugins_url('leadoutcome/frontend/img/lo_icon.png'));
 	$act_optin_form_page = add_submenu_page( 'leadoutcom_main' , __('Opt-In Forms', 'lo'), __('Opt-In Forms', 'lo'), 'administrator', 'leadoutcome_optin_forms', 'lo_admin_optin_forms');
 	$act_lead_track_convert_options_page = add_submenu_page( 'leadoutcom_main' , __('Lead Tracking / Conversions', 'lo'), __('Lead Tracking / Conversions', 'lo'), 'administrator', 'leadoutcome_lead_track_convert_options', 'lo_admin_lead_track_convert_options');
 }
