@@ -37,8 +37,8 @@ function lo_init_scripts()
 	wp_enqueue_script('jquery-ui-dialog');
 	wp_enqueue_script('jquery-ui-widget');
 
-	wp_enqueue_style('jquery-ui-theme','/wp-content/plugins/'.LO_PLUGIN_DIR.'/jqueryui/themes/'.JQUERY_UI_THEME.'/jquery-ui-1.8.14.custom.css' );
-	//wp_enqueue_script('ds-frontend-scripts','/wp-content/plugins/'.LO_PLUGIN_DIR.'/frontend/js/scripts.js',array(),false,true );
+	wp_enqueue_style('jquery-ui-theme',LO_PLUGIN_DIR_URL.'/jqueryui/themes/'.JQUERY_UI_THEME.'/jquery-ui-1.8.14.custom.css' );
+	//wp_enqueue_script('ds-frontend-scripts',LO_PLUGIN_DIR_URL.'/frontend/js/scripts.js',array(),false,true );
 
 	$data = array(
 	);
@@ -78,7 +78,7 @@ function lo_admin_menu()
 
 function lo_admin_main()
 {
-	include_once(LO_PLUGIN_ABS_PATH_DIR.'/views/admin/admin_main.php');
+	include_once(LO_PLUGIN_DIR.'/views/admin/admin_main.php');
 }
 
 function lo_admin_lead_track_convert_options()
@@ -104,7 +104,7 @@ function lo_admin_lead_track_convert_options()
 	}
 	$lo_lead_track_convert_posts = get_option('lo_lead_track_convert_posts',1);
 	$lo_lead_track_convert_pages = get_option('lo_lead_track_convert_pages',1);
-	include_once( LO_PLUGIN_ABS_PATH_DIR . '/views/admin/form_edit_lead_track_convert_options.php' );
+	include_once( LO_PLUGIN_DIR . '/views/admin/form_edit_lead_track_convert_options.php' );
 }
 
 function lo_admin_optin_forms()
@@ -148,11 +148,11 @@ function lo_admin_optin_forms()
 
 		if($create_success || $create_success > 0)
 		{
-			include_once( LO_PLUGIN_ABS_PATH_DIR . '/views/admin/form_edit_optin_form.php' );
+			include_once( LO_PLUGIN_DIR . '/views/admin/form_edit_optin_form.php' );
 		}
 		else
 		{
-			include_once( LO_PLUGIN_ABS_PATH_DIR . '/views/admin/form_add_optin_form.php' );
+			include_once( LO_PLUGIN_DIR . '/views/admin/form_add_optin_form.php' );
 		}
 
 	}
@@ -178,7 +178,7 @@ function lo_admin_optin_forms()
 					, array( 'id' => $wpdb->escape($_POST['form_id']) ) );
 		}
 		$form_data = $wpdb->get_row('SELECT * FROM `lo_optin_forms` WHERE `id`='.$wpdb->escape($_REQUEST['form_id']),ARRAY_A);
-		include_once( LO_PLUGIN_ABS_PATH_DIR . '/views/admin/form_edit_optin_form.php' );
+		include_once( LO_PLUGIN_DIR . '/views/admin/form_edit_optin_form.php' );
 	}
 	else
 	{
@@ -188,13 +188,13 @@ function lo_admin_optin_forms()
 				require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 			}
 			if(!class_exists('LeadOutcome_OptinForms_List_Table')){
-				require_once( LO_PLUGIN_ABS_PATH_DIR . '/includes/optin_forms_list_table.php' );
+				require_once( LO_PLUGIN_DIR . '/includes/optin_forms_list_table.php' );
 			}
 
 			$LeadOutcome_OptinForms_List_Table = new LeadOutcome_OptinForms_List_Table($restrict_to_my_clubs);
 			$LeadOutcome_OptinForms_List_Table->prepare_items();
 
-			include_once(LO_PLUGIN_ABS_PATH_DIR.'/views/admin/admin_optin_forms.php');
+			include_once(LO_PLUGIN_DIR.'/views/admin/admin_optin_forms.php');
 		}
 		else
 		{
@@ -254,7 +254,7 @@ function lo_wp_footer() {
 
 	if($show_lead_track_convert_code)
 	{
-		include_once(LO_PLUGIN_ABS_PATH_DIR.'/views/frontend/lead_track_convert_code.php');
+		include_once(LO_PLUGIN_DIR.'/views/frontend/lead_track_convert_code.php');
 	}
 }
 
@@ -268,4 +268,4 @@ function lo_messages($text,$type='message')
 	{
 		echo '<div id="message" class="updated below-h2"><p>'.$text.'</p></div>';
 	}
-}
+}

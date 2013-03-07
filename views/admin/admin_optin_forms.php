@@ -33,6 +33,6 @@
 <br />
 <?php if(current_user_can('administrator')) { ?>
 	<a id="add_optin_form" />
-	<?php $add_optin_form_included = true; include_once( LO_PLUGIN_ABS_PATH_DIR . '/views/admin/form_add_optin_form.php' ); ?>
+	<?php $add_optin_form_included = true; include_once( LO_PLUGIN_DIR . '/views/admin/form_add_optin_form.php' ); ?>
 <?php
 }
