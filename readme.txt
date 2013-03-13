@@ -42,6 +42,7 @@ Your started your company to earn a significant income - this marketing system i
 *1.0 initial release
 *1.0.1 fixing menu name
 *1.0.2 fixing plugin path definitions
+*1.0.3 fixing plugin path definitions
 
 == Upgrade Notice ==
 
