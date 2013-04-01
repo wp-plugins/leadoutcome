@@ -1,7 +1,7 @@
 <?php
 /**
 Plugin Name: LeadOutcome
-Version: 1.0.3
+Version: 1.0.4
 Plugin URI: http://wordpress.org/extend/plugins/leadoutcome
 Author: Chad Horton
 Author URI: http://www.leadoutcome.com
@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **/
 
 global $lo_version;
-$lo_version = "1.0.3";
+$lo_version = "1.0.4";
 
 @define('LO_PLUGIN_DIR',plugin_dir_path(__FILE__));
 @define('LO_PLUGIN_DIR_URL',plugin_dir_url( __FILE__ ));
