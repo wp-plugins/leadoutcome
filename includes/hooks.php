@@ -11,3 +11,6 @@ if(!is_admin())
 {
 	add_shortcode('leadoutcome_optin_form', 'lo_optin_form_shortcode');
 }
+
+include_once('leadoutcome_widget.php');
+add_action('widgets_init', create_function('', 'return register_widget("LeadOutcomeSidebarWidget");'));

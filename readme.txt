@@ -44,6 +44,7 @@ Your started your company to earn a significant income - this marketing system i
 *1.0.2 fixing plugin path definitions
 *1.0.3 fixing plugin path definitions
 *1.0.4 modified shortcode handler to buffer content and execute do_shortcode on output
+*1.1 new sidebar widget
 
 == Upgrade Notice ==
 
