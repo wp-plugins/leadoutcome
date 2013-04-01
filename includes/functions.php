@@ -66,11 +66,16 @@ function lo_optin_form_shortcode($atts) {
 
 	$form_data = $wpdb->get_row($wpdb->prepare("SELECT `".$wpdb->escape($type)."` FROM `".$wpdb->prefix . "lo_optin_forms` WHERE `id`=%d AND `blog_id`=".get_current_blog_id(),$id),ARRAY_A);
 
+	ob_start();
+
 	if(is_array($form_data) && array_key_exists($type,$form_data) && $form_data[$type] != '')
 	{
-		return stripslashes($form_data[$type]);
+		echo do_shortcode(stripslashes($form_data[$type]));
 	}
-	return "";
+
+	$output = ob_get_contents();
+	ob_end_clean();
+	return do_shortcode($output);
 }
 
 function lo_post_edit_form_tag( ) {
