@@ -6,14 +6,14 @@ function lo_plugin_activate()
 	global $lo_version;
 
 	$sql = "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix . "lo_optin_forms` (
-		`id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-		`blog_id` INTEGER(11) NOT NULL,
-		`form_name` VARCHAR(255) NOT NULL,
-		`full_form_content` TEXT,
-		`email_only_form_content` TEXT,
-		`subscribe_only_form_content` TEXT,
-		PRIMARY KEY (`id`) COMMENT ''
-		) ENGINE=InnoDB CHECKSUM=0 DELAY_KEY_WRITE=0 PACK_KEYS=0 AUTO_INCREMENT=0 AVG_ROW_LENGTH=0 MIN_ROWS=0 MAX_ROWS=0 ROW_FORMAT=DEFAULT KEY_BLOCK_SIZE=0";
+		id INTEGER(11) NOT NULL AUTO_INCREMENT,
+		blog_id INTEGER(11) NOT NULL,
+		form_name VARCHAR(255) NOT NULL,
+		full_form_content TEXT,
+		email_only_form_content TEXT,
+		subscribe_only_form_content TEXT,
+		PRIMARY KEY  (id)
+		) ENGINE=InnoDB;";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
