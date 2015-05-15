@@ -116,7 +116,7 @@ function lo_admin_menu()
 
 	$act_optin_form_page = add_submenu_page( 'leadoutcom_main' , __('Opt-In Forms', 'lo'), __('Opt-In Forms', 'lo'), 'administrator', 'leadoutcome_optin_forms', 'lo_admin_optin_forms');
 
-	$act_lead_track_convert_options_page = add_submenu_page( 'leadoutcom_main' , __('Lead Tracking / Conversions', 'lo'), __('Lead Tracking / Conversions', 'lo'), 'administrator', 'leadoutcome_lead_track_convert_options', 'lo_admin_lead_track_convert_options');
+	$act_lead_track_convert_options_page = add_submenu_page( 'leadoutcom_main' , __('Lead Tracking / Conversions', 'lo'), __('Account Setup', 'lo'), 'administrator', 'leadoutcome_lead_track_convert_options', 'lo_admin_lead_track_convert_options');
 
 }
 
@@ -159,6 +159,13 @@ function lo_admin_lead_track_convert_options()
 	include_once( LO_PLUGIN_DIR . '/views/admin/form_edit_lead_track_convert_options.php' );
 }
 
+
+function lo_get_uid()
+{
+	if (!isset($lo_uid))
+		$lo_uid = get_site_option('lo_uid');
+	return $lo_uid;
+}
 
 function lo_admin_optin_forms()
 {
@@ -313,13 +320,12 @@ function lo_wp_footer() {
 	global $wpdb,$post;
 
 	$show_lead_track_convert_code = false;
+	$lo_uid = get_site_option('lo_uid',1);
 
 	if ( !is_admin() && !is_feed() && !is_robots() && !is_trackback() && isset($post->ID) ) {
 
 		$lo_lead_track_convert_posts = get_site_option('lo_lead_track_convert_posts',1);
-		$lo_uid = get_site_option('lo_uid',1);
 		$lo_lead_track_convert_pages = get_site_option('lo_lead_track_convert_pages',1);
-
 		$current_post_type = get_post_type( $post->ID );
 
 		$lo_this_page_visited_title = get_the_title( $post->ID );
