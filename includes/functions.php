@@ -1,7 +1,10 @@
 <?php
 
+
+
 function lo_plugin_activate()
 {
+
 	global $wpdb;
 	global $lo_version;
 
@@ -12,6 +15,7 @@ function lo_plugin_activate()
 		full_form_content TEXT,
 		email_only_form_content TEXT,
 		subscribe_only_form_content TEXT,
+		uid TEXT,
 		PRIMARY KEY  (id)
 		) ENGINE=InnoDB;";
 
@@ -19,25 +23,36 @@ function lo_plugin_activate()
 	dbDelta( $sql );
 
 	add_site_option( "lo_version", $lo_version );
-
 }
+
+
 
 function lo_initialize()
 {
+
 	/**
+
 	register_post_type($GLOBALS['LO_CUSTOM_POST_TYPE'], $GLOBALS['LO_CUSTOM_POST_TYPE_ARGS']);
+
 	foreach ($GLOBALS['LO_TAXONOMIES'] as $taxonomy_name => $taxonomy_info) {
+
 		register_taxonomy($taxonomy_name, $taxonomy_info['object_type'], $taxonomy_info['args']);
+
 	}
+
 	flush_rewrite_rules(false);
+
 	**/
 
 	add_action('admin_menu','lo_admin_menu');
 }
 
+
+
 function lo_init_scripts()
 {
 	global $wp_scripts,$wp_styles;
+
 
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-core');
@@ -46,27 +61,37 @@ function lo_init_scripts()
 	wp_enqueue_script('jquery-ui-widget');
 
 	wp_enqueue_style('jquery-ui-theme',LO_PLUGIN_DIR_URL.'/jqueryui/themes/'.JQUERY_UI_THEME.'/jquery-ui-1.8.14.custom.css' );
+
 	//wp_enqueue_script('ds-frontend-scripts',LO_PLUGIN_DIR_URL.'/frontend/js/scripts.js',array(),false,true );
 
 	$data = array(
+
 	);
+
 	wp_localize_script( 'ds-frontend-scripts', 'lo_frontend_scripts_data', $data );
 
 	wp_enqueue_script('media-upload');
 	wp_enqueue_script('thickbox');
 	wp_enqueue_style('thickbox');
+
 }
 
+
+
 function lo_optin_form_shortcode($atts) {
+
 	global $wpdb;
+
 	extract(shortcode_atts(array(
 		'id' => 0,
 		'type' => ''
 	), $atts));
 
+
 	$form_data = $wpdb->get_row($wpdb->prepare("SELECT `".$wpdb->escape($type)."` FROM `".$wpdb->prefix . "lo_optin_forms` WHERE `id`=%d AND `blog_id`=".get_current_blog_id(),$id),ARRAY_A);
 
 	ob_start();
+
 
 	if(is_array($form_data) && array_key_exists($type,$form_data) && $form_data[$type] != '')
 	{
@@ -78,21 +103,31 @@ function lo_optin_form_shortcode($atts) {
 	return do_shortcode($output);
 }
 
+
+
 function lo_post_edit_form_tag( ) {
     echo ' enctype="multipart/form-data"';
 }
 
+
 function lo_admin_menu()
 {
 	add_menu_page(__('LeadOutcome', 'lo'), __('LeadOutcome', 'lo'), 'administrator', 'leadoutcom_main', 'lo_admin_main',plugins_url('leadoutcome/frontend/img/lo_icon.png'));
+
 	$act_optin_form_page = add_submenu_page( 'leadoutcom_main' , __('Opt-In Forms', 'lo'), __('Opt-In Forms', 'lo'), 'administrator', 'leadoutcome_optin_forms', 'lo_admin_optin_forms');
+
 	$act_lead_track_convert_options_page = add_submenu_page( 'leadoutcom_main' , __('Lead Tracking / Conversions', 'lo'), __('Lead Tracking / Conversions', 'lo'), 'administrator', 'leadoutcome_lead_track_convert_options', 'lo_admin_lead_track_convert_options');
+
 }
+
+
 
 function lo_admin_main()
 {
 	include_once(LO_PLUGIN_DIR.'/views/admin/admin_main.php');
 }
+
+
 
 function lo_admin_lead_track_convert_options()
 {
@@ -101,6 +136,7 @@ function lo_admin_lead_track_convert_options()
 	$posts_update_success = false;
 	$posts_update_success = false;
 	$perform_update = false;
+
 	if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'update')
 	{
 		if(!current_user_can('manage_options'))
@@ -113,12 +149,16 @@ function lo_admin_lead_track_convert_options()
 			$perform_update = true;
 			$posts_update_success = update_site_option( 'lo_lead_track_convert_posts', ($_POST['lead_track_convert_posts'] == '1' ? '1' : '0') );
 			$pages_update_success = update_site_option( 'lo_lead_track_convert_pages', ($_POST['lead_track_convert_pages'] == '1' ? '1' : '0') );
+			$pages_update_success = update_site_option( 'lo_uid', $_POST['lo_uid'] );
+
 		}
 	}
+	$lo_uid = get_site_option('lo_uid',1);
 	$lo_lead_track_convert_posts = get_site_option('lo_lead_track_convert_posts',1);
 	$lo_lead_track_convert_pages = get_site_option('lo_lead_track_convert_pages',1);
 	include_once( LO_PLUGIN_DIR . '/views/admin/form_edit_lead_track_convert_options.php' );
 }
+
 
 function lo_admin_optin_forms()
 {
@@ -218,69 +258,129 @@ function lo_admin_optin_forms()
 	}
 }
 
+
+
+
 function leadoutcome_optin_forms_edit()
+
 {
+
 }
 
+
+
 function lo_delete_optin_form($ids)
+
 {
+
 	global $wpdb;
 
+
+
 	if(!current_user_can('manage_options'))
+
 	{
+
 		wp_die( __('You do not have priviledges to access this page','lo'), 'Access Denied!', array('back_link' => true) );
 
+
+
 	}
+
+
 
 	for($a=0;$a<count($ids);$a++)
 	{
+
 		$wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix . "lo_optin_forms` WHERE `id` = %d AND `blog_id` = %d",$ids[$a],get_current_blog_id()));
+
 	}
+
 	?>
+
 	<script>location.replace('<?php echo $_REQUEST['_wp_http_referer'].'&deleted=1' ?>');</script>
+
 	<?php
+
 	exit;
+
 }
 
+
+
 function lo_wp_footer() {
+
 	global $wpdb,$post;
 
 	$show_lead_track_convert_code = false;
+
 	if ( !is_admin() && !is_feed() && !is_robots() && !is_trackback() && isset($post->ID) ) {
 
-
 		$lo_lead_track_convert_posts = get_site_option('lo_lead_track_convert_posts',1);
+		$lo_uid = get_site_option('lo_uid',1);
 		$lo_lead_track_convert_pages = get_site_option('lo_lead_track_convert_pages',1);
 
 		$current_post_type = get_post_type( $post->ID );
+
 		$lo_this_page_visited_title = get_the_title( $post->ID );
 
+
+
 		if($current_post_type == 'post' && $lo_lead_track_convert_posts == 1)
+
 		{
+
 			$show_lead_track_convert_code = true;
+
 			$lo_lead_track_convert_activity = 'Visited Post';
+
 		}
+
 		if($current_post_type == 'page' && $lo_lead_track_convert_pages == 1)
+
 		{
+
 			$show_lead_track_convert_code = true;
+
 			$lo_lead_track_convert_activity = 'Visited Page';
+
 		}
+
 	}
+
+
 
 	if($show_lead_track_convert_code)
+
 	{
+
 		include_once(LO_PLUGIN_DIR.'/views/frontend/lead_track_convert_code.php');
+
 	}
+
 }
 
+
+
 function lo_messages($text,$type='message')
+
 {
+
 	if($type=='error')
+
 	{
+
 		echo '<div class="error"><p>'.$text.'</p></div>';
+
 	}
+
 	elseif($type=='message')
+
 	{
+
 		echo '<div id="message" class="updated below-h2"><p>'.$text.'</p></div>';
+
 	}
+
 }
+
