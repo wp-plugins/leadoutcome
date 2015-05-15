@@ -1,5 +1,5 @@
 === LeadOutcome ===
-Contributors: LeadOutcome.com, Chad Horton 
+Contributors: LeadOutcome.com, Chad Horton & Will Berger
 Donate Link: http://www.leadoutcome.com
 Tags: marketing,sales,leads,email,email marketing,crm,leadoutcome
 Requires at least: 3.1
