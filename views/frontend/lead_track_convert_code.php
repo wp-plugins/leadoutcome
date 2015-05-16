@@ -1,8 +1,4 @@
-<script type="text/javascript" src="http://www.leadoutcome.com/orderManagement/scripts/loTrack.js"></script>
-<script type="text/javascript">
-var src='https://leadoutcome.com/track/image?activity=<?php echo $lo_lead_track_convert_activity; ?>&eventDetail=<?php echo $lo_this_page_visited_title; ?>&sendEmail=false&incrementScore=5&type=LEAD&aCat=&transferLead=';	  
-var oImg=document.createElement('img');
-oImg.setAttribute('src', src);
-document.getElementById('ttrackleadoutcome').appendChild(oImg);
-</script>
-<div id="ttrackleadoutcome"></div>
+<!--START SMART PIXEL - DO NOT EDIT-->
+<img width="1" height="1" src="https://www.leadoutcome.com/track/image?uid=<?php echo lo_get_uid(); ?>&activity=<?php echo $lo_lead_track_convert_activity; ?>&eventDetail=<?php echo $lo_this_page_visited_title; ?>&a1click=&incrementScore=5&type=LEAD&transferLead="/>
+<!-- END SMART PIXEL-->  
+
